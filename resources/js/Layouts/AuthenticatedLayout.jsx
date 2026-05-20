@@ -6,7 +6,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+    const { user, unreadNotificationsCount } = usePage().props.auth;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -31,13 +31,40 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                
-                                {/* ADDED: Contacts Link for Desktop */}
+
+                                <NavLink
+                                    href={route('todos.index')}
+                                    active={route().current('todos.index')}
+                                >
+                                    Todos
+                                </NavLink>
+
+                                <NavLink
+                                    href={route('calendar.index')}
+                                    active={route().current('calendar.index')}
+                                >
+                                    Calendar
+                                </NavLink>
+
                                 <NavLink
                                     href={route('contacts.index')}
                                     active={route().current('contacts.*')}
                                 >
                                     Contacts
+                                </NavLink>
+
+                                <NavLink
+                                    href={route('notifications.index')}
+                                    active={route().current('notifications.index')}
+                                >
+                                    <span className="inline-flex items-center gap-2">
+                                        Notifications
+                                        {unreadNotificationsCount > 0 ? (
+                                            <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+                                                {unreadNotificationsCount}
+                                            </span>
+                                        ) : null}
+                                    </span>
                                 </NavLink>
                             </div>
                         </div>
@@ -144,6 +171,20 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('todos.index')}
+                            active={route().current('todos.index')}
+                        >
+                            Todos
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('calendar.index')}
+                            active={route().current('calendar.index')}
+                        >
+                            Calendar
+                        </ResponsiveNavLink>
                         
                         {/* ADDED: Contacts Link for Mobile */}
                         <ResponsiveNavLink
@@ -151,6 +192,18 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('contacts.*')}
                         >
                             Contacts
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('notifications.index')}
+                            active={route().current('notifications.index')}
+                        >
+                            Notifications
+                            {unreadNotificationsCount > 0 ? (
+                                <span className="ml-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-red-500 px-2 text-xs font-semibold text-white">
+                                    {unreadNotificationsCount}
+                                </span>
+                            ) : null}
                         </ResponsiveNavLink>
                     </div>
 

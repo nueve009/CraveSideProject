@@ -33,6 +33,17 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'unreadNotificationsCount' => $request->user()?->unreadNotifications()->count() ?? 0,
+                'unreadNotifications' => $request->user()?->unreadNotifications()->latest()->take(5)->get()
+                    ->map(function ($notification) {
+                        return [
+                            'id' => $notification->id,
+                            'data' => $notification->data,
+                            'read_at' => $notification->read_at,
+                            'created_at' => $notification->created_at?->toDateTimeString(),
+                        ];
+                    })
+                    ->toArray() ?? [],
             ],
         ];
     }

@@ -98,6 +98,15 @@ export default function Index() {
                                                 <div>{contact.address || 'Not set'}</div>
                                             </div>
                                         </div>
+
+                                        <div className="mt-4 flex items-center gap-2">
+                                            <Link
+                                                href={route('contacts.chat', { contact: contact.id })}
+                                                className="inline-flex items-center justify-center rounded-md border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 transition hover:bg-indigo-100"
+                                            >
+                                                Message
+                                            </Link>
+                                        </div>
                                     </div>
                                 ))
                             )}

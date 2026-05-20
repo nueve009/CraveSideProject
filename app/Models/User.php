@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\CalendarEvent;
+use App\Models\PrivateMessage;
+use App\Models\Todo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +70,25 @@ class User extends Authenticatable
         }
 
         return asset('storage/' . $this->profile_photo_path);
+    }
+
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
+    public function calendarEvents()
+    {
+        return $this->hasMany(CalendarEvent::class);
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(PrivateMessage::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(PrivateMessage::class, 'recipient_id');
     }
 }
