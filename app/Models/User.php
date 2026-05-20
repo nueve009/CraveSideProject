@@ -21,6 +21,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'contact_number',
+        'address',
+        'profile_photo_path',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var list<string>
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     /**
@@ -44,5 +56,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getProfilePhotoUrlAttribute(): string
+    {
+        if (! $this->profile_photo_path) {
+            return 'https://ui-avatars.com/api/?name=' .
+                urlencode($this->name) .
+                '&background=0D8ABC&color=fff';
+        }
+
+        return asset('storage/' . $this->profile_photo_path);
     }
 }

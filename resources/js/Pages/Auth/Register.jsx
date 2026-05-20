@@ -11,6 +11,8 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        contact_number: '',
+        address: '',
     });
 
     const submit = (e) => {
@@ -58,6 +60,38 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="contact_number" value="Contact Number" />
+
+                    <TextInput
+                        id="contact_number"
+                        type="tel"
+                        name="contact_number"
+                        value={data.contact_number}
+                        className="mt-1 block w-full"
+                        autoComplete="tel"
+                        onChange={(e) => setData('contact_number', e.target.value)}
+                    />
+
+                    <InputError message={errors.contact_number} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="address" value="Address" />
+
+                    <TextInput
+                        id="address"
+                        type="text"
+                        name="address"
+                        value={data.address}
+                        className="mt-1 block w-full"
+                        autoComplete="street-address"
+                        onChange={(e) => setData('address', e.target.value)}
+                    />
+
+                    <InputError message={errors.address} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
